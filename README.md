@@ -157,6 +157,7 @@ Apply the deployment:
 ```bash
 kubectl apply -f deployment.yaml
 ```
+<img width="959" height="449" alt="Image" src="https://github.com/user-attachments/assets/96424554-5c10-46db-90f9-08877387d2da" />
 
 *(Note: If you want external access, configure an Ingress or change the Service type to LoadBalancer).*
 
