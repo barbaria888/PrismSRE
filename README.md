@@ -7,6 +7,7 @@
 
 > **The next-generation, AI-powered Site Reliability Engineer for your Kubernetes Clusters.**
 <img width="1536" height="1024" alt="gpt-overview" src="https://github.com/user-attachments/assets/a7a051f3-6cda-40a1-bd65-d357960b72a5" />
+
 PrismSRE is a production-grade Kubernetes troubleshooting system that acts as an autonomous AI agent. It seamlessly bridges the gap between raw cluster metrics/logs and actionable SRE insights. Powered by the **Google Agent Development Kit (ADK)**, **Model Context Protocol (MCP)**, and a beautiful **Glassmorphism Dashboard**, PrismSRE provides immediate, intelligent diagnostics for your Kubernetes workloads.
 
 ---
