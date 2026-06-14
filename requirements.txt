@@ -1,0 +1,21 @@
+# ==============================================================================
+# KubeOps-AI — Production Dependencies
+# ==============================================================================
+# Agent Framework (Google Agent Development Kit)
+google-adk>=1.2.0
+
+# MCP Server Framework
+fastmcp>=2.0.0
+
+# MCP Protocol Types (required for StdioServerParameters)
+mcp>=1.0.0
+
+# Official Kubernetes Python Client (production-grade API access)
+kubernetes>=31.0.0
+
+# Environment variable management
+python-dotenv>=1.0.0
+
+# Dashboard Server
+fastapi>=0.115.0
+uvicorn[standard]>=0.34.0
