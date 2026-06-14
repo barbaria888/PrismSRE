@@ -28,7 +28,7 @@ from contextlib import asynccontextmanager
 
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi.responses import FileResponse, JSONResponse, Response
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
@@ -171,6 +171,11 @@ async def serve_frontend():
         raise HTTPException(status_code=404, detail="index.html not found")
     return FileResponse(HTML_FILE, media_type="text/html")
 
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon():
+    """Prevent 404 for missing favicon."""
+    return Response(status_code=204)
+
 
 @app.get("/health")
 async def health_check():
@@ -218,7 +223,7 @@ async def troubleshoot(request: TroubleshootRequest):
             new_message=content,
         ):
             # Log tool invocations for observability
-            if event.actions and event.actions.tool_calls:
+            if event.actions and hasattr(event.actions, 'tool_calls') and event.actions.tool_calls:
                 for tc in event.actions.tool_calls:
                     logger.info(
                         "[session=%s] Tool call: %s(%s)",

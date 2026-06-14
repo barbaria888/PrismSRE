@@ -289,7 +289,7 @@ async def run_troubleshooting_session():
         new_message=alert_message,
     ):
         # Log tool call events for observability
-        if event.actions and event.actions.tool_calls:
+        if event.actions and hasattr(event.actions, 'tool_calls') and event.actions.tool_calls:
             for tc in event.actions.tool_calls:
                 logger.info(
                     "Agent invoking tool: %s(%s)",

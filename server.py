@@ -52,12 +52,14 @@ logger = logging.getLogger("kubeops-mcp-server")
 # to the local kubeconfig file (for development).
 # ==============================================================================
 try:
-    config.load_incluster_config()
-    logger.info("Loaded in-cluster Kubernetes configuration.")
+    # Try local kubeconfig first (good for local dev)
+    config.load_kube_config()
+    logger.info("Loaded kubeconfig from default location (~/.kube/config).")
 except config.config_exception.ConfigException:
     try:
-        config.load_kube_config()
-        logger.info("Loaded kubeconfig from default location (~/.kube/config).")
+        # Fallback to In-Cluster Service Account tokens
+        config.load_incluster_config()
+        logger.info("Loaded in-cluster Kubernetes configuration.")
     except config.config_exception.ConfigException as e:
         logger.critical(
             "FATAL: Could not load Kubernetes configuration. "

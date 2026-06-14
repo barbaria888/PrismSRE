@@ -347,8 +347,8 @@
                         gemini-2.5-flash
                     </div>
                     <div id="status-indicator" class="flex items-center gap-1.5 text-[11px] text-zinc-500 glass rounded-lg px-3 py-1.5">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                        <span id="status-text">Ready</span>
+                        <span id="status-dot" class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span id="status-text">Connecting...</span>
                     </div>
                 </div>
             </header>
@@ -578,13 +578,21 @@
         }
 
         // ====== UI State Management ======
+        let isSystemReady = false;
+        const statusDot = document.getElementById('status-dot');
+
         function setLoading(isLoading) {
-            queryInput.disabled  = isLoading;
-            submitBtn.disabled   = isLoading;
+            queryInput.disabled  = isLoading || !isSystemReady;
+            submitBtn.disabled   = isLoading || !isSystemReady;
             btnText.textContent  = isLoading ? 'Analyzing' : 'Diagnose';
             btnIcon.classList.toggle('hidden', isLoading);
             btnSpinner.classList.toggle('hidden', !isLoading);
-            statusText.textContent = isLoading ? 'Analyzing...' : 'Ready';
+            
+            if (!isSystemReady) {
+                statusText.textContent = 'Connecting...';
+            } else {
+                statusText.textContent = isLoading ? 'Analyzing...' : 'Ready';
+            }
 
             if (isLoading) {
                 addLoadingIndicator();
@@ -645,8 +653,28 @@
         });
 
         // ====== Initialize ======
+        async function checkHealth() {
+            try {
+                const res = await fetch('/health');
+                if (res.ok) {
+                    isSystemReady = true;
+                    statusDot.className = 'w-1.5 h-1.5 rounded-full bg-emerald-400';
+                    setLoading(false); // Update UI to Ready
+                    queryInput.focus();
+                } else {
+                    throw new Error("Not ready");
+                }
+            } catch (err) {
+                isSystemReady = false;
+                statusDot.className = 'w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse';
+                setLoading(false); // Disable inputs, show Connecting
+                setTimeout(checkHealth, 3000); // Retry every 3s
+            }
+        }
+
         renderWelcome();
-        queryInput.focus();
+        setLoading(false); // Initial disable until health check passes
+        checkHealth();
 
     })();
     </script>
