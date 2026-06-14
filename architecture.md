@@ -5,7 +5,7 @@ PrismSRE is designed with a strict focus on **security**, **modular decoupling**
 ---
 
 ## 🧩 High-Level System Architecture
-
+<img width="2816" height="1536" alt="archit" src="https://github.com/user-attachments/assets/1e856313-6671-43a6-a0e8-cf81327a1813" />
 The system consists of three main boundaries:
 
 1. **The User Boundary (Frontend)**
