@@ -1,6 +1,6 @@
 """
 ==============================================================================
-KubeOps-AI — ADK Agent (AI Troubleshooting Orchestrator)
+PrismSRE — ADK Agent (AI Troubleshooting Orchestrator)
 ==============================================================================
 
 This module implements the AI reasoning layer using Google's Agent Development
@@ -14,7 +14,7 @@ ARCHITECTURE:
     tools exposed by the MCP server, enforcing a strict security boundary.
 
 USAGE:
-    1. Set GOOGLE_API_KEY in your environment (or .env file)
+    1. Set GOOGLE_API_KEY in your environment kubernetes secret object(or .env file)
     2. Ensure kubectl context is configured for your target cluster
     3. Run: python agent.py
 
@@ -53,8 +53,8 @@ logger = logging.getLogger("kubeops-agent")
 
 # --- Constants ---
 AGENT_MODEL = "gemini-2.5-flash"  # Fast, capable, cost-effective
-APP_NAME = "kubeops-ai"
-AGENT_NAME = "kubeops_sre_agent"
+APP_NAME = "prismsre"
+AGENT_NAME = "PrsimSRE-agent"
 USER_ID = "sre_operator"
 SESSION_ID = "troubleshooting_session_001"
 
@@ -273,7 +273,7 @@ async def run_troubleshooting_session():
     print("=" * 70)
     print(TEST_ALERT)
     print("=" * 70)
-    print("\n🤖 KubeOps-AI is analyzing the incident...\n")
+    print("\n🤖 PrismSRE is analyzing the incident...\n")
 
     # Build the user message content
     alert_message = types.Content(
