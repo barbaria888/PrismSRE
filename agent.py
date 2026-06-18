@@ -323,7 +323,7 @@ def main():
         asyncio.run(run_troubleshooting_session())
     except KeyboardInterrupt:
         logger.info("Agent interrupted by user (Ctrl+C). Shutting down...")
-        print("\n👋 KubeOps-AI shut down gracefully.")
+        print("\n👋 PrismSRE shut down gracefully.")
     except Exception as e:
         logger.exception("Fatal error in KubeOps-AI agent: %s", e)
         print(f"\n❌ Fatal error: {e}")
